@@ -1,0 +1,47 @@
+version: '3.5'
+services:
+
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jumia_scrapper_node
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+      - /home/node/app/node_modules
+    ports:
+      - 4000:3000
+    command: npm run dev
+    networks:
+      - app-network
+
+  #postgres
+  db:
+    container_name: jumia_scrapper_db
+    image: postgres
+    environment:
+      POSTGRES_DB: jumia_scrapper
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - 4002:5432
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    name: jumia_scrapper
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
