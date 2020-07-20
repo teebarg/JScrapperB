@@ -21,8 +21,7 @@ exports.subscribe = async (req, res) => {
 
         res.json('User Subscribed Successfully');
     } catch (error) {
-        console.log(error)
-        res.status(422).json('Server Error');
+        res.status(422).json(error);
     }
 };
 
