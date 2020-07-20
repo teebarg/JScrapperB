@@ -36,7 +36,7 @@ const Scrapper = async (target, page) => {
             }
         })
     } catch (error) {
-        throw Error('Something Went Wrong')
+        throw Error(error)
     }
 
     return result.sort((a, b) => b.discount - a.discount);
