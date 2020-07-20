@@ -9,7 +9,7 @@ exports.scrape = async (req, res) => {
         const resp = await Scrapper(target, page)
         res.json(resp);
     } catch (error) {
-        res.status(400).json('Something went wrong')
+        res.status(400).json(error)
     }
 };
 
