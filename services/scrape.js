@@ -16,7 +16,7 @@ const Scrapper = async (target, page) => {
 
     try {
         const { data: $} = await axios(options);
- 
+
         $('.prc').each((i, e) => {
             var allListElements = $( ".old" );
             const t = $(e).next().find(allListElements).text() || $(e).attr('data-oprc');
@@ -27,12 +27,13 @@ const Scrapper = async (target, page) => {
 
                 const discount = Math.floor((old - current) / old * 100);
                 const name = $(e).parent().text().substring(0, $(e).parent().text().indexOf('₦'));
+                const img = $(e).parent().find('img').attr('data-src');
                 const href = $(e).parent().attr('href');
                 const next = $( "a[aria-label='Next Page']" ).attr('href');
-                
+
                 if (discount >= target) {
-                    result.push({ discount, href, name, old, current, next })
-                } 
+                    result.push({ discount, href, name, old, current, img, next })
+                }
             }
         })
     } catch (error) {

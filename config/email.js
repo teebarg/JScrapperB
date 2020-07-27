@@ -17,7 +17,15 @@ module.exports.SMTPTransport = nodemailer.createTransport({
 
 module.exports.ViewOption = (transport, hbs) => {
     transport.use('compile', hbs({
-            viewPath: path.join(__dirname, '../views/email'),
-            extName: '.hbs'
+            viewEngine: {        
+                extname: '.hbs',                          
+                layoutsDir: 'views/email/',                                
+                defaultLayout : 'template',                                  
+                partialsDir : 'views/partials/'
+                              
+                },
+            viewPath: path.join(__dirname, '../views/email/'),
+            extName: '.hbs',
+            
     }));
 }
